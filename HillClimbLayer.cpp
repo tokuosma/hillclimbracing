@@ -36,6 +36,9 @@ namespace hillclimb {
     
         //Initialize car field here. Arguments: carStartX, carStartY, spriteScale
         //Initialize road field here. Arguments: winWidth, winHeight
+        this->hillClimbRoad = std::make_shared<HillClimbRoad>(winWidth, winHeight);
+        this->hillClimbRoad->addPart(0, this->carStartY - carSize.height/2);
+        this->hillClimbRoad->addPart(winWidth ,this->carStartY - carSize.height/2);
         this->generateRoadParts();
 
         auto eventListener = cocos2d::EventListenerKeyboard::create();
@@ -61,15 +64,26 @@ namespace hillclimb {
     }
 
     void HillClimbLayer::generateRoadParts() {
-        //MIN_ROAD_SIZE = 2
-        //get part count of road
-        //get part coordinate pairs of road
-    
-        //if partCount < MIN_ROAD_SIZE
+        const int MIN_ROAD_SIZE = 2;
+        int partCount = this->hillClimbRoad->getPartCount();
+        std::vector<Coordinates> coordinates = 
+            this->hillClimbRoad->getPartCoords();
+            
+        if (partCount < MIN_ROAD_SIZE){
+            return;
+        }
             //return
 
         auto drawNode = cocos2d::DrawNode::create();
         drawNode->setName("drawNode");
+        for (int i = 0; i < partCount - 1; i++) {
+            Coordinates beginCoords = coordinates[i];
+            Coordinates endCoords = coordinates[i + 1];
+            std::cout << std::to_string(beginCoords.x) << "," << std::to_string(beginCoords.y) << "\n";
+            drawNode->drawLine(cocos2d::Point(beginCoords.x, beginCoords.y),
+                    cocos2d::Point(endCoords.x, endCoords.y),
+                    cocos2d::Color4F::WHITE);
+        }
         /*Loop through partCoordPairs:
             beginCoords = partCoordPair at current index
             endCoords = partCoordPair at current index + 1

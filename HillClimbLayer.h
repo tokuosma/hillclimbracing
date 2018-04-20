@@ -6,6 +6,8 @@
 #include <chrono>
 
 #include "cocos2d.h"
+#include "HillClimbRoad.h"
+#include "HillClimbUtility.h"
 // Add missing includes here
 
 namespace hillclimb {
@@ -23,6 +25,7 @@ namespace hillclimb {
     
         //Car field;
         //Road field;
+        std::shared_ptr<HillClimbRoad> hillClimbRoad;
         cocos2d::Sprite* carSprite; // autoreleased by cocos2d so no need to delete
         double carStartY;
     
