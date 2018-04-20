@@ -1,10 +1,26 @@
+#include "HillClimbCar.h"
+
+namespace hillclimb{
+    
+    HillClimbCar::HillClimbCar(const double x, const double y, const double scale):
+    X_POS(x),Y_POS(y),SCALE(scale){};
+    
+    void HillClimbCar::updateThrottle(double throttle){
+        this->throttle = throttle;
+        
+    }
+    
+    void updateVelocityX(){
+        
+    }
+    
+}
 /*
 
 Includes
 
 namespace
 
-    HillClimbCar constructor
 
     function updateVelocityX
 

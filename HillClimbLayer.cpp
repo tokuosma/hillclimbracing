@@ -35,6 +35,7 @@ namespace hillclimb {
         this->addChild(this->carSprite, 0);
     
         //Initialize car field here. Arguments: carStartX, carStartY, spriteScale
+        this->hillClimbCar = std::make_shared<HillClimbCar>(carStartX, this->carStartY, spriteScale);
         //Initialize road field here. Arguments: winWidth, winHeight
         this->hillClimbRoad = std::make_shared<HillClimbRoad>(winWidth, winHeight);
         this->hillClimbRoad->addPart(0, this->carStartY - carSize.height/2);
@@ -84,13 +85,7 @@ namespace hillclimb {
                     cocos2d::Point(endCoords.x, endCoords.y),
                     cocos2d::Color4F::WHITE);
         }
-        /*Loop through partCoordPairs:
-            beginCoords = partCoordPair at current index
-            endCoords = partCoordPair at current index + 1
-            drawNode->drawLine(cocos2d::Point(x of beginCoords, y of beginCoords),
-            cocos2d::Point(x of endCoords, y of endCoords),
-            cocos2d::Color4F::WHITE);
-        */
+
         this->addChild(drawNode);
     }
 
@@ -100,9 +95,12 @@ namespace hillclimb {
 
     void HillClimbLayer::update(float dt) {
         cocos2d::Node::update(dt);
+        double throttle;
         if (isKeyPressed(cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW)) {
+            this->hillClimbRoad->move(6);
             //Speed the car up with the updateThrottle method
         } else if (isKeyPressed(cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW)) {
+            this->hillClimbRoad->move(-6);
             //Put the brake on with the updateThrottle method
         } else {
             //Slow the car down with the updateThrottle method
